@@ -402,34 +402,6 @@ iframe {
   background: rgb(170, 50, 255);
 }
 
-.private-btn1 {
-  padding: 8px 16px;
-  background: rgb(136, 0, 255);
-  border: none;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.private-btn1 :hover {
-  background: rgb(170, 50, 255);
-}
-
-.private-btn2 {
-  padding: 8px 16px;
-  background: rgb(136, 0, 255);
-  border: none;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.private-btn2 :hover {
-  background: rgb(170, 50, 255);
-}
-
 @keyframes beat {
   0%, 100% {
     transform: scale(1);
