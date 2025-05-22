@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cafunk - Tek It</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #1a001a;
+      color: #d580ff;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container-lirik {
+      background-color: #290033;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px 5px rgba(213, 128, 255, 0.5);
+      width: 80%;
+      max-width: 600px;
+      position: relative;
+    }
+
+    #lyrics {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .word {
+      opacity: 0;
+      animation: fadeIn 0.5s forwards;
+      display: inline-block;
+      margin: 0 2px;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .button-lirik {
+      background-color: #8000ff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .button-lirik:hover {
+      background-color: #9900cc;
+    }
+
+    .h3-lirik {
+      text-align: center;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-lirik">
+    <h3 class="h3-lirik">cafune tek it</h3>
+    <button class="button-lirik" onclick="startLyrics()">Run</button>
+    <audio id="audio" src="lyric.mp3"></audio>
+    <div id="lyrics"></div>  
+  </div>
+
+  <script>
+    const lyrics = [
+      "and you just cant call",
+      "a spade, a spade ~ ",
+      "I watch the moon",
+      "Let it run my mood",
+      "Can't stop thinking of you:>",
+      "I watch you:>",
+      "So long nice to know you I'll be",
+      "Moving on."
+    ];
+
+    const delays = [
+      [300, 200, 300, 400, 200],
+      [200, 200, 200, 200, 1800],
+      [1000, 900, 700, 900],
+      [300, 200, 300, 400, 1000],
+      [400, 500, 1000, 900, 1000],
+      [1800, 900, 2500],
+      [300, 200, 300, 400, 300],
+      [50, 50, 50, 50]
+    ];
+
+    const lineDelays = [1400, 2400, 20000, 3000, 10000, 2000, 4000, 100, 8000];
+
+    let lineIndex = 0;
+    let wordIndex = 0;
+    let words = [];
+
+    function startLyrics() {
+      document.getElementById('audio').play();
+      document.getElementById('lyrics').innerHTML = '';
+      lineIndex = 0;
+      showLine();
+    }
+
+    function showLine() {
+      if (lineIndex < lyrics.length) {
+        words = lyrics[lineIndex].split(' ');
+        wordIndex = 0;
+        const newLine = document.createElement('div');
+        newLine.id = 'line-' + lineIndex;
+        document.getElementById('lyrics').appendChild(newLine);
+        showWord(lineIndex);
+      }
+    }
+
+    function showWord(currentLineIndex) {
+      if (wordIndex < words.length) {
+        const lineDiv = document.getElementById('line-' + currentLineIndex);
+        const span = document.createElement('span');
+        span.className = 'word';
+        span.innerText = words[wordIndex] + ' ';
+        lineDiv.appendChild(span);
+
+        const delay = delays[currentLineIndex]?.[wordIndex] || 900;
+        wordIndex++;
+        setTimeout(() => showWord(currentLineIndex), delay);
+      } else {
+        lineIndex++;
+        setTimeout(showLine, 1000);
+      }
+    }
+  </script>
+</body>
+</html>
